@@ -21,7 +21,7 @@ int EEPROMReadInt(int p_address){
 }
 
 void EEPROMData () {
-  for(int i = 0; i < 16; i + 2){
+  for(int i = 0; i < 16; i += 2){
     Serial.println(EEPROMReadInt(i));
   }
 }

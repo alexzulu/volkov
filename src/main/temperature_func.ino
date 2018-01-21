@@ -1,11 +1,11 @@
-int hCount = millis();
+uint32_t hCount = millis();
 void getValueHiTemperatureSensors (){
-  int divide = 0;
-  int allTemp = 0;
-  int currentMillis = millis();
-  int offset = currentMillis - hCount;
+//  int divide = 0;
+//  int allTemp = 0;
+  uint32_t currentMillis = millis();
+  uint32_t offset = currentMillis - hCount;
   if(offset > mOffset){
-    for (int i = 0; i < 2; i++){
+    for (uint8_t i = 0; i < 2; i++){
       DHT dht(TemperatureSensorHiPins[i], DHTTYPE);
       dht.begin();
       if (TemperatureSensorHiSwitch[i]){
@@ -26,14 +26,14 @@ void getValueHiTemperatureSensors (){
   }
 }
 
-int lCount = millis();
+uint32_t lCount = millis();
 void getValueLowTemperatureSensors (){
-  int divide;
-  int allTemp;
-  int currentMillis = millis();
-  int offset = currentMillis - lCount;
+//  int divide;
+//  int allTemp;
+  uint32_t currentMillis = millis();
+  uint32_t offset = currentMillis - lCount;
   if(offset > mOffset){
-    for (int i = 0; i < 2; i++){
+    for (uint8_t i = 0; i < 2; i++){
       DHT dht(TemperatureSensorLowPins[i], DHTTYPE);
       dht.begin();
       if (TemperatureSensorLowSwitch[i]){
@@ -61,9 +61,9 @@ void getValueLowTemperatureSensors (){
 }
 
 void getRealTemperatureHi () {
-  int divide = 0;
-  int allTemp = 0;
-  for (int i = 0; i < 2; i++) {
+  int8_t divide = 0;
+  int8_t allTemp = 0;
+  for (uint8_t i = 0; i < 2; i++) {
     if(TemperatureSensorHiValueTemperature[i] > 0){
       if (TemperatureSensorHiSwitch[i]) {
         divide++;
@@ -90,9 +90,9 @@ void getRealTemperatureHi () {
 }
 
 void getRealTemperatureLow () {
-  int divide = 0;
-  int allTemp = 0;
-  for (int i = 0; i < 2; i++) {
+  int8_t divide = 0;
+  int8_t allTemp = 0;
+  for (uint8_t i = 0; i < 2; i++) {
     if (TemperatureSensorLowSwitch[i]) {
       if(TemperatureSensorLowValueTemperature[i] > 0){
         divide++;
@@ -119,9 +119,9 @@ void getRealTemperatureLow () {
 }
 
 void getRealHumidityLow () {
-  int divide = 0;
-  int allHum = 0;
-  for (int i = 0; i < 2; i++) {
+  int8_t divide = 0;
+  int8_t allHum = 0;
+  for (uint8_t i = 0; i < 2; i++) {
     if (TemperatureSensorLowSwitch[i]) {
       if(TemperatureSensorLowValueHumidity[i] > 0){
         divide++;

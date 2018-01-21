@@ -1,7 +1,7 @@
-int lxCount = millis();
+uint32_t lxCount = millis();
 void getLight () {
-  int currentMillis = millis();
-  int offset = currentMillis - lxCount;
+  uint32_t currentMillis = millis();
+  uint32_t offset = currentMillis - lxCount;
   if(offset > mOffset){
     lux = lightMeter.readLightLevel();
     lxCount = currentMillis;
