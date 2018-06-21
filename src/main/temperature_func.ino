@@ -16,9 +16,9 @@ void getValueHiTemperatureSensors (){
       }
     }
     TemperatureSensorHiValueTemperature[0] = sensors.getTempC(TH0);
-    Serial.println(TemperatureSensorHiValueTemperature[0]);
+//    Serial.println(TemperatureSensorHiValueTemperature[0]);
     TemperatureSensorHiValueTemperature[1] = sensors.getTempC(TH1);
-    Serial.println(TemperatureSensorHiValueTemperature[1]);
+//    Serial.println(TemperatureSensorHiValueTemperature[1]);
     hCount = currentMillis;
     if (debug == 2){
       Serial.println("");
@@ -50,9 +50,9 @@ void getValueLowTemperatureSensors (){
       }
     }
     TemperatureSensorLowValueTemperature[0] = sensors.getTempC(TL0);
-    Serial.println(TemperatureSensorLowValueTemperature[0]);
+//    Serial.println(TemperatureSensorLowValueTemperature[0]);
     TemperatureSensorLowValueTemperature[1] = sensors.getTempC(TL1);
-    Serial.println(TemperatureSensorLowValueTemperature[1]);
+//    Serial.println(TemperatureSensorLowValueTemperature[1]);
     lCount = currentMillis;
     if (debug == 2){
       Serial.println("");

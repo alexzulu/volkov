@@ -11,14 +11,12 @@
 // (2) Control over 4 - 6 digital input pins (internal pullups enabled)
 // (3) Control over encoder (internal pullups enabled)
 // (4) Control with Keypad
+// (5) Control with an ir remote
+// (6) Control with a youstick
 // *********************************************************************
 
-//#define _LCDML_CONTROL_cfg      0  // serial
-//#define _LCDML_CONTROL_cfg    1  // analog
-const uint8_t _LCDML_CONTROL_cfg = 1;
-//#define _LCDML_CONTROL_cfg    2  // digital
-//#define _LCDML_CONTROL_cfg    3  // encoder
-//#define _LCDML_CONTROL_cfg    4  // keypad
+#define _LCDML_CONTROL_cfg      0  
+
 
 // therory:
 // "#if" is a preprocessor directive and no error, look here:
@@ -100,22 +98,20 @@ void LCDML_CONTROL_loop()
 // *********************************************************************
 #elif(_LCDML_CONTROL_cfg == 1)
 // settings
-
-  const uint8_t _LCDML_CONTROL_analog_pin = A15;
+  #define _LCDML_CONTROL_analog_pin              0
   // when you did not use a button set the value to zero
-  const uint16_t _LCDML_CONTROL_analog_enter_min = 540;     // Button Enter
-  const uint16_t _LCDML_CONTROL_analog_enter_max = 650;
-  const uint16_t _LCDML_CONTROL_analog_up_min = 400; // Button Up
-  const uint16_t _LCDML_CONTROL_analog_up_max = 480;
-  const uint16_t _LCDML_CONTROL_analog_down_min = 310; // Button Down
-  const uint16_t _LCDML_CONTROL_analog_down_max = 390;
-  const uint16_t _LCDML_CONTROL_analog_back_min = 100; // Button Back
-  const uint16_t _LCDML_CONTROL_analog_back_max = 150;   
-  const uint16_t _LCDML_CONTROL_analog_left_min = 200; // Button Left
-  const uint16_t _LCDML_CONTROL_analog_left_max = 270;   
-  const uint16_t _LCDML_CONTROL_analog_right_min = 490; // Button Right
-  const uint16_t _LCDML_CONTROL_analog_right_max = 530;
-  
+  #define _LCDML_CONTROL_analog_enter_min        850     // Button Enter
+  #define _LCDML_CONTROL_analog_enter_max        920  
+  #define _LCDML_CONTROL_analog_up_min           520     // Button Up
+  #define _LCDML_CONTROL_analog_up_max           590   
+  #define _LCDML_CONTROL_analog_down_min         700     // Button Down
+  #define _LCDML_CONTROL_analog_down_max         770   
+  #define _LCDML_CONTROL_analog_back_min         950     // Button Back
+  #define _LCDML_CONTROL_analog_back_max         1020   
+  #define _LCDML_CONTROL_analog_left_min         430     // Button Left
+  #define _LCDML_CONTROL_analog_left_max         500   
+  #define _LCDML_CONTROL_analog_right_min        610     // Button Right
+  #define _LCDML_CONTROL_analog_right_max        680
 // *********************************************************************
 // setup
 void LCDML_CONTROL_setup()
@@ -153,16 +149,16 @@ void LCDML_CONTROL_loop()
 // *********************************************************************
 #elif(_LCDML_CONTROL_cfg == 2)
 // settings
-  const boolean _LCDML_CONTROL_digital_low_active      0    // (0 = low active (pullup), 1 = high active (pulldown) button
+  #define _LCDML_CONTROL_digital_low_active      0    // (0 = low active (pullup), 1 = high active (pulldown) button
                                                       // http://playground.arduino.cc/CommonTopics/PullUpDownResistor
-  const boolean _LCDML_CONTROL_digital_enable_quit = 1;
-  const boolean _LCDML_CONTROL_digital_enable_lr = 1;
-  const uint8_t _LCDML_CONTROL_digital_enter = 8;
-  const uint8_t _LCDML_CONTROL_digital_up = 9;
-  const uint8_t _LCDML_CONTROL_digital_down = 10;
-  const uint8_t _LCDML_CONTROL_digital_quit = 11;
-  const uint8_t _LCDML_CONTROL_digital_left = 12;
-  const uint8_t _LCDML_CONTROL_digital_right = 13;
+  #define _LCDML_CONTROL_digital_enable_quit     1
+  #define _LCDML_CONTROL_digital_enable_lr       1
+  #define _LCDML_CONTROL_digital_enter           8    
+  #define _LCDML_CONTROL_digital_up              9
+  #define _LCDML_CONTROL_digital_down            10
+  #define _LCDML_CONTROL_digital_quit            11
+  #define _LCDML_CONTROL_digital_left            12
+  #define _LCDML_CONTROL_digital_right           13
 // *********************************************************************
 // setup
 void LCDML_CONTROL_setup()
@@ -229,10 +225,10 @@ void LCDML_CONTROL_loop()
 // *********************************************************************
 #elif(_LCDML_CONTROL_cfg == 3)
 // settings
-  const uint8_t _LCDML_CONTROL_encoder_pin_a = 10; // pin encoder b
-  const uint8_t _LCDML_CONTROL_encoder_pin_b = 11; // pin encoder a
-  const uint8_t _LCDML_CONTROL_encoder_pin_button = 12; // pin taster
-  const boolean _LCDML_CONTROL_encoder_high_active = 1;  // (0 = low active (pullup), 1 = high active (pulldown)) button
+  #define _LCDML_CONTROL_encoder_pin_a           10 // pin encoder b
+  #define _LCDML_CONTROL_encoder_pin_b           11 // pin encoder a
+  #define _LCDML_CONTROL_encoder_pin_button      12 // pin taster
+  #define _LCDML_CONTROL_encoder_high_active     0  // (0 = low active (pullup), 1 = high active (pulldown)) button
                                                       // // http://playground.arduino.cc/CommonTopics/PullUpDownResistor
 // global defines
   uint8_t  g_LCDML_CONTROL_encoder_t_prev = 0;
@@ -246,8 +242,8 @@ void LCDML_CONTROL_setup()
   LCDML_BACK_dynamic_setLoopTime(LCDML_BACKEND_control, 5UL);  // 5ms 
 
   // init pins  
-//  pinMode(_LCDML_CONTROL_encoder_pin_a      , INPUT_PULLUP);
-//  pinMode(_LCDML_CONTROL_encoder_pin_b      , INPUT_PULLUP);
+  pinMode(_LCDML_CONTROL_encoder_pin_a      , INPUT_PULLUP);
+  pinMode(_LCDML_CONTROL_encoder_pin_b      , INPUT_PULLUP);
   pinMode(_LCDML_CONTROL_encoder_pin_button , INPUT_PULLUP); 
 }
 // *********************************************************************
@@ -344,6 +340,108 @@ void LCDML_CONTROL_loop()
 // *********************************************************************
 // ******************************* END *********************************
 // *********************************************************************
+
+
+// *********************************************************************
+// *************** (5) CONTROL WITH IR REMOTE ***************************
+// *********************************************************************
+#elif(_LCDML_CONTROL_cfg == 5)
+	// ir include (this lib have to be installed) 
+	#include <IRremote.h>
+	// ir global vars
+	int RECV_PIN = 11; 
+	// ir objects
+	IRrecv irrecv(RECV_PIN);
+	decode_results results;
+  
+// *********************************************************************
+// setup (nothing change here)
+void LCDML_CONTROL_setup()
+{
+	irrecv.enableIRIn(); // Start the receiver
+}
+// *********************************************************************
+// loop
+// change in this function the ir values to your values
+void LCDML_CONTROL_loop()
+{  
+	if (irrecv.decode(&results))
+	{
+		// comment this line out, to check the correct code 
+		//Serial.println(results.value, HEX);
+    
+		// in this switch case you have to change the value 0x...1 to the correct ir code
+		switch (results.value)
+		{
+			case 0x00000001: LCDML_BUTTON_enter(); break;  
+			case 0x00000002: LCDML_BUTTON_up();    break;
+			case 0x00000003: LCDML_BUTTON_down();  break;
+			case 0x00000004: LCDML_BUTTON_left();  break;
+			case 0x00000005: LCDML_BUTTON_right(); break;
+			case 0x00000006: LCDML_BUTTON_quit();  break;
+			default: break;       
+		}
+	} 
+}
+// *********************************************************************
+// ******************************* END *********************************
+// *********************************************************************
+
+
+
+// *********************************************************************
+// *************** (6) CONTROL OVER JOYSTICK *********************
+// *********************************************************************
+#elif(_LCDML_CONTROL_cfg == 6)
+	// settings
+	#define _LCDML_CONTROL_analog_pinx A0
+	#define _LCDML_CONTROL_analog_piny A1
+	#define _LCDML_CONTROL_digitalread 33 //don't work with u8glib
+
+	// when you did not use a button set the value to zero
+	#define _LCDML_CONTROL_analog_up_min 612 // Button Up
+	#define _LCDML_CONTROL_analog_up_max 1023
+	#define _LCDML_CONTROL_analog_down_min 0 // Button Down
+	#define _LCDML_CONTROL_analog_down_max 412
+	#define _LCDML_CONTROL_analog_left_min 612 // Button Left
+	#define _LCDML_CONTROL_analog_left_max 1023
+	#define _LCDML_CONTROL_analog_right_min 0 // Button Right
+	#define _LCDML_CONTROL_analog_right_max 412
+// *********************************************************************
+// setup
+void LCDML_CONTROL_setup()
+{	
+	pinMode (_LCDML_CONTROL_digitalread, INPUT);
+}
+// *********************************************************************
+// loop
+void LCDML_CONTROL_loop()
+{
+	// check debounce timer
+	if((millis() - g_LCDML_DISP_press_time) >= _LCDML_DISP_cfg_button_press_time) {
+		g_LCDML_DISP_press_time = millis(); // reset debounce timer
+
+		uint16_t valuex = analogRead(_LCDML_CONTROL_analog_pinx);  // analogpinx
+		uint16_t valuey = analogRead(_LCDML_CONTROL_analog_piny);  // analogpinx
+		uint16_t valuee = digitalRead(_LCDML_CONTROL_digitalread);  //digitalpinenter
+
+		
+		if (valuey >= _LCDML_CONTROL_analog_up_min && valuey <= _LCDML_CONTROL_analog_up_max) { LCDML_BUTTON_up(); }		// up
+		if (valuey >= _LCDML_CONTROL_analog_down_min && valuey <= _LCDML_CONTROL_analog_down_max) { LCDML_BUTTON_down(); }	// down
+		if (valuex >= _LCDML_CONTROL_analog_left_min && valuex <= _LCDML_CONTROL_analog_left_max) { LCDML_BUTTON_left(); } 	// left
+		if (valuex >= _LCDML_CONTROL_analog_right_min && valuex <= _LCDML_CONTROL_analog_right_max) { LCDML_BUTTON_right(); }	// right
+		
+		if(valuee == true) {LCDML_BUTTON_enter();}	// enter
+
+		// back buttons have to be included as menuitem 
+		// lock at the examle LCDML_back_button
+
+	}
+}
+// *********************************************************************
+// ******************************* END *********************************
+// *********************************************************************
+
 
 #else
   #error _LCDML_CONTROL_cfg is not defined or not in range

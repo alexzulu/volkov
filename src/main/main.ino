@@ -90,7 +90,7 @@ uint8_t minutes;
 uint8_t pos;
 boolean edit;
 
-uint8_t debug = 2; // Режим отладки вкл/выкл 
+uint8_t debug = 0; // Режим отладки вкл/выкл 
 
 tmElements_t tm;
  

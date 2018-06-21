@@ -19,6 +19,6 @@ void getData(){
 
   lowerHumidityLimit = setHumidity - setHumidityDifference - 1;
   upperHumidityLimit = setHumidity + setHumidityDifference + 1;
-  delay(500);
+//  delay(500);
 }
 
